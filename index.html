@@ -1,1 +1,837 @@
-sddd
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 in 1 Car Holderphone Hidden Hook - Importan.co</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 2s infinite;
+        }
+        
+        .new-order-popup {
+            animation: slideIn 0.5s ease-out forwards, slideOut 0.5s ease-out 2.5s forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateY(0); }
+            to { transform: translateY(100%); }
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .modal-content {
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .floating-cta {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .discount-badge {
+            background: linear-gradient(135deg, #ff0000, #ff6600);
+        }
+        
+        .testimonial-card {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        
+        .how-to-step {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .how-to-step:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .how-to-step:nth-child(1):before {
+            content: "1";
+        }
+        
+        .how-to-step:nth-child(2):before {
+            content: "2";
+            background-color: #10b981;
+        }
+        
+        .how-to-step:nth-child(3):before {
+            content: "3";
+            background-color: #f59e0b;
+        }
+        
+        .how-to-step:nth-child(4):before {
+            content: "4";
+            background-color: #ef4444;
+        }
+        
+        .sticky-header {
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .countdown-item {
+            min-width: 60px;
+        }
+        
+        @media (max-width: 640px) {
+            .countdown-item {
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+    <!-- New Order Popup -->
+    <div id="newOrderPopup" class="new-order-popup fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg rounded-t-lg z-50 hidden">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold" id="customerInitial">J</div>
+                <div>
+                    <p class="font-medium text-sm" id="customerName">John - Jakarta</p>
+                    <p class="text-xs text-gray-500">Baru saja memesan 2 in 1 Car Holderphone</p>
+                </div>
+            </div>
+            <button id="closePopup" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="modal-content transform scale-90 relative">
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-screen">
+            <button id="closeModal" class="absolute -top-10 right-0 text-white text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header" class="sticky-header bg-white py-4 px-4 md:px-8 lg:px-16 fixed top-0 left-0 right-0 z-40">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img src="https://cdn.orderonline.id/uploads/images_5251691754398663364.jpg" alt="Importan.co Logo" class="h-10 w-auto">
+                <span class="font-bold text-lg">Importan.co</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center space-x-2 text-sm">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    <span>Produk Original</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2 text-sm">
+                    <i class="fas fa-truck text-blue-500"></i>
+                    <span>Gratis Ongkir</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2 text-sm">
+                    <i class="fas fa-shield-alt text-yellow-500"></i>
+                    <span>Garansi 1 Tahun</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-blue-50 to-white">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0 animate-fade-in">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900">2 in 1 Car Holderphone Hidden Hook</h1>
+                <p class="text-lg md:text-xl text-gray-700 mb-6">Solusi Praktis untuk Menyimpan Ponsel dan Barang di Mobil Anda!</p>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                    <p class="text-yellow-700 font-medium"><i class="fas fa-exclamation-circle mr-2"></i> <span id="viewCount">1,253</span> orang sedang melihat produk ini!</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <div class="flex items-center bg-green-50 px-3 py-2 rounded-full">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span class="text-sm">100% Original</span>
+                    </div>
+                    <div class="flex items-center bg-blue-50 px-3 py-2 rounded-full">
+                        <i class="fas fa-truck text-blue-500 mr-2"></i>
+                        <span class="text-sm">Gratis Ongkir</span>
+                    </div>
+                    <div class="flex items-center bg-purple-50 px-3 py-2 rounded-full">
+                        <i class="fas fa-shield-alt text-purple-500 mr-2"></i>
+                        <span class="text-sm">Garansi 1 Tahun</span>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="ml-2 text-gray-700">4.8/5 (1,024 ulasan)</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-yellow-400 h-2.5 rounded-full" style="width: 96%"></div>
+                    </div>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-center mb-2">
+                        <div class="discount-badge text-white font-bold px-3 py-1 rounded-full text-xs mr-3">PROMO</div>
+                        <p class="font-bold text-red-600">KHUSUS PEMBAYARAN TF HARI INI DAPAT GRATIS ONGKIR</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="countdown-timer flex space-x-2">
+                            <div class="countdown-item bg-red-600 text-white rounded p-2 text-center">
+                                <div class="text-lg font-bold" id="countdown-hours">00</div>
+                                <div class="text-xs">Jam</div>
+                            </div>
+                            <div class="countdown-item bg-red-600 text-white rounded p-2 text-center">
+                                <div class="text-lg font-bold" id="countdown-minutes">00</div>
+                                <div class="text-xs">Menit</div>
+                            </div>
+                            <div class="countdown-item bg-red-600 text-white rounded p-2 text-center">
+                                <div class="text-lg font-bold" id="countdown-seconds">00</div>
+                                <div class="text-xs">Detik</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="relative">
+                    <img src="https://cdn.cloudfastcdn.com/image/f076a3cbb6c4dcb3cb0a5afe3a498911143c77e9-500.webp" alt="2 in 1 Car Holderphone Hidden Hook" class="w-full rounded-lg shadow-lg">
+                    <div class="absolute -top-4 -right-4 bg-red-600 text-white font-bold px-4 py-2 rounded-full animate-pulse-slow">
+                        STOK <span id="stockCount">27</span> LAGI!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Gallery -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Galeri Produk</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/3db3dec49174c27d3ccdca5c785dc38957244f28-600.jpeg" alt="Product Image 1" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/d8ee3ab64b9002cf45b48873da18dc38bd6792ca-500.webp" alt="Product Image 2" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/9423e98591dd8a8518b27d5ad122cd092479277f-500.webp" alt="Product Image 3" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/c676bf6182ab48f515542ef2143513e0a37d916c-500.webp" alt="Product Image 4" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/65aa7a43cfe303253b84f1bc32aad4449100a117-500.webp" alt="Product Image 5" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/d91a402d6254be0d80e89502ed1058f6b0c3f27d-500.webp" alt="Product Image 6" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/37dc005b2b9bd2c5c574535b79d5092b532de018.jpeg" alt="Product Image 7" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <div class="gallery-item cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn.cloudfastcdn.com/image/ca72914ad2e33c55d87e565b8574bf1772159ea7-500.webp" alt="Product Image 8" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Solution Section -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Masalah yang Sering Dihadapi Pengemudi</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Berikut adalah masalah umum yang dihadapi pengemudi dan solusi yang kami tawarkan</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-times-circle text-red-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Masalah</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-red-500 mt-1 mr-2"></i>
+                            <span>Ponsel sering jatuh saat berkendara karena tidak ada tempat khusus</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-red-500 mt-1 mr-2"></i>
+                            <span>Tidak ada tempat praktis untuk menyimpan barang kecil di mobil</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-red-500 mt-1 mr-2"></i>
+                            <span>Holder biasa memakan tempat dan mengganggu pandangan</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-red-500 mt-1 mr-2"></i>
+                            <span>Barang-barang berantakan di kursi atau lantai mobil</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Solusi</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                            <span>2 in 1 Car Holderphone Hidden Hook memberikan tempat khusus untuk ponsel dan barang kecil</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                            <span>Desain hidden yang tidak mengganggu pandangan saat berkendara</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                            <span>Mudah dipasang di headrest mobil tanpa merusak interior</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-green-500 mt-1 mr-2"></i>
+                            <span>Material kuat dan tahan lama dengan daya rekat yang optimal</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Fitur Unggulan Produk Kami</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Desain inovatif dengan berbagai fitur yang membuat berkendara lebih nyaman</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="feature-icon rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">2 Fungsi Sekaligus</h3>
+                    <p class="text-gray-600">Sebagai holder ponsel dan hook untuk menggantung barang sekaligus</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="feature-icon rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-eye-slash text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Desain Hidden</h3>
+                    <p class="text-gray-600">Tidak mengganggu pandangan saat berkendara</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="feature-icon rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-cogs text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Adjustable</h3>
+                    <p class="text-gray-600">Dapat disesuaikan untuk berbagai ukuran ponsel</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="feature-icon rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bolt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Pemasangan Mudah</h3>
+                    <p class="text-gray-600">Tidak perlu alat khusus, cukup pasang di headrest mobil</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <img src="https://cdn.cloudfastcdn.com/image/ca72914ad2e33c55d87e565b8574bf1772159ea7-500.webp" alt="Product Features" class="mx-auto rounded-lg shadow-lg max-w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- How To Use Section -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Cara Menggunakan</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Hanya dalam 4 langkah mudah, mobil Anda akan lebih rapi dan fungsional</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <div class="space-y-6">
+                        <div class="how-to-step">
+                            <h3 class="font-bold text-lg mb-2">Pasang Hook</h3>
+                            <p class="text-gray-700">Sematkan bagian hook ke headrest kursi mobil Anda dengan kuat</p>
+                        </div>
+                        
+                        <div class="how-to-step">
+                            <h3 class="font-bold text-lg mb-2">Atur Posisi</h3>
+                            <p class="text-gray-700">Atur posisi holder sesuai kenyamanan pandangan Anda saat berkendara</p>
+                        </div>
+                        
+                        <div class="how-to-step">
+                            <h3 class="font-bold text-lg mb-2">Letakkan Ponsel</h3>
+                            <p class="text-gray-700">Tempatkan ponsel Anda pada holder dengan aman</p>
+                        </div>
+                        
+                        <div class="how-to-step">
+                            <h3 class="font-bold text-lg mb-2">Gunakan Hook</h3>
+                            <p class="text-gray-700">Gantung tas kecil, kacamata, atau barang lainnya pada bagian hook</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <img src="https://cdn.cloudfastcdn.com/image/6bb088db4020ea6e5dbb8d6bdcc64e68af777a7e-500.webp" alt="How to use" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Apa Kata Pelanggan Kami?</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Testimoni asli dari pelanggan yang sudah menggunakan produk kami</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="testimonial-card bg-white p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold mr-4">A</div>
+                        <div>
+                            <h4 class="font-bold">Andi - Pengusaha</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Sangat praktis! Sekarang ponsel saya tidak lagi berantakan di kursi. Holder ini kuat dan tidak goyang meski di jalan bergelombang."</p>
+                </div>
+                
+                <div class="testimonial-card bg-white p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold mr-4">S</div>
+                        <div>
+                            <h4 class="font-bold">Siti - Ibu Rumah Tangga</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Anak-anak saya suka menggantungkan tas kecil mereka di hook ini. Mobil jadi lebih rapi dan tidak berantakan lagi."</p>
+                </div>
+                
+                <div class="testimonial-card bg-white p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold mr-4">B</div>
+                        <div>
+                            <h4 class="font-bold">Budi - Driver Online</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Sebagai driver online, produk ini sangat membantu. Ponsel tetap stabil saat melihat map, dan hooknya berguna untuk menggantungkan masker cadangan."</p>
+                </div>
+                
+                <div class="testimonial-card bg-white p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 font-bold mr-4">D</div>
+                        <div>
+                            <h4 class="font-bold">Dewi - Karyawan</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Desainnya minimalis tapi fungsional. Tidak seperti holder biasa yang memakan tempat. Sangat direkomendasikan untuk pengemudi harian!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-blue-50 to-blue-100">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Pilih Paket Terbaik Anda</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Dapatkan produk berkualitas dengan harga terbaik hari ini</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden border-2 border-blue-300 transform hover:scale-105 transition-transform duration-300">
+                    <div class="bg-blue-600 text-white py-4 px-6">
+                        <h3 class="font-bold text-xl">Paket Normal</h3>
+                        <p class="text-blue-100">Isi 2 pcs</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-end mb-4">
+                            <span class="text-4xl font-bold text-gray-800">Rp 156.000</span>
+                            <span class="ml-2 text-lg text-gray-500 line-through">Rp 234.000</span>
+                            <span class="ml-auto bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Hemat 33%</span>
+                        </div>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>2x Car Holderphone Hidden Hook</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Garansi 1 Tahun</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Gratis Ongkir Hari Ini</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden border-2 border-yellow-300 transform hover:scale-105 transition-transform duration-300">
+                    <div class="bg-yellow-500 text-white py-4 px-6">
+                        <h3 class="font-bold text-xl">Paket Super Hemat</h3>
+                        <p class="text-yellow-100">Isi 4 pcs</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-end mb-4">
+                            <span class="text-4xl font-bold text-gray-800">Rp 192.000</span>
+                            <span class="ml-2 text-lg text-gray-500 line-through">Rp 384.000</span>
+                            <span class="ml-auto bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full">Hemat 50%</span>
+                        </div>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>4x Car Holderphone Hidden Hook</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Garansi 1 Tahun</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Gratis Ongkir Hari Ini</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Bonus Microfiber Cloth</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <div class="inline-flex items-center bg-yellow-50 border border-yellow-200 rounded-full px-4 py-2">
+                    <i class="fas fa-gift text-yellow-500 mr-2"></i>
+                    <span class="font-medium text-yellow-700">KHUSUS PEMBAYARAN TF HARI INI DAPAT GRATIS ONGKIR</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section class="py-12 px-4 md:px-8 lg:px-16 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Form Pemesanan</h2>
+                <p class="text-lg text-gray-600">Isi form berikut untuk memesan produk kami</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="ooef">
+                    <form class="orderonline-embed-form" data-username="vera" data-product-slug="car-headrest-hidden-hook" data-product-id="6891fe567b7b6ce02a052082" id="oo-embed-form-car-headrest-hidden-hook-8249" data-origin="orderonline">
+                        <div class="ooef-loader"><style>.ooef-loader{visibility: hidden;opacity: 0;position: absolute;left: 0;right: 0;top: 0;bottom: 0;display: flex;justify-content: center;align-items: center;flex-direction: column;animation: ooLoadingIn 10s ease;-webkit-animation: ooLoadingIn 10s ease;animation-fill-mode: forwards;overflow: hidden}@keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}@-webkit-keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}.ooef-loader>div,.ooef-loader>div:after{border-radius: 50%;width: 2.5rem;height: 2.5rem}.ooef-loader>div{font-size: 10px;position: relative;text-indent: -9999em;border: .25rem solid #f5f5f5;border-left: .25rem solid #55c4cf;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation: ooLoading 1.1s infinite linear;animation: ooLoading 1.1s infinite linear}.ooef-loader.error>div{border-left: .25rem solid #ff4500;animation-duration: 5s}@-webkit-keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}@keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}</style><div aria-live="polite" role="status"><div>Loading...</div></div></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Timer Script -->
+    <script>
+        // Countdown Timer Functionality
+        function updateCountdown() {
+            const hoursElement = document.getElementById('countdown-hours');
+            const minutesElement = document.getElementById('countdown-minutes');
+            const secondsElement = document.getElementById('countdown-seconds');
+            
+            // Set target time (24 hours from now)
+            const now = new Date();
+            const targetTime = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+            
+            function update() {
+                const now = new Date();
+                const diff = targetTime - now;
+                
+                if (diff <= 0) {
+                    // Reset timer when expired
+                    targetTime.setTime(targetTime.getTime() + 24 * 60 * 60 * 1000);
+                    return;
+                }
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            update();
+            setInterval(update, 1000);
+        }
+
+        // Image Modal Functionality
+        function setupImageModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+            
+            galleryItems.forEach(img => {
+                img.addEventListener('click', () => {
+                    modal.classList.add('active');
+                    modalImg.src = img.src;
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // New Order Popup Functionality
+        function setupOrderPopup() {
+            const popup = document.getElementById('newOrderPopup');
+            const closeBtn = document.getElementById('closePopup');
+            
+            // Show popup randomly
+            setTimeout(() => {
+                popup.classList.remove('hidden');
+                setTimeout(() => {
+                    popup.classList.add('hidden');
+                }, 5000);
+            }, 10000);
+            
+            closeBtn.addEventListener('click', () => {
+                popup.classList.add('hidden');
+            });
+            
+            // Simulate random orders
+            const names = ['Budi', 'Ani', 'Dewi', 'Rudi', 'Siti', 'Ahmad'];
+            const cities = ['Jakarta', 'Bandung', 'Surabaya', 'Medan', 'Makassar'];
+            
+            setInterval(() => {
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                const randomCity = cities[Math.floor(Math.random() * cities.length)];
+                
+                document.getElementById('customerInitial').textContent = randomName.charAt(0);
+                document.getElementById('customerName').textContent = `${randomName} - ${randomCity}`;
+                
+                popup.classList.remove('hidden');
+                setTimeout(() => {
+                    popup.classList.add('hidden');
+                }, 5000);
+            }, 30000);
+        }
+
+        // View Counter Functionality
+        function updateViewCounter() {
+            const viewCountElement = document.getElementById('viewCount');
+            let count = 1253;
+            
+            setInterval(() => {
+                count += Math.floor(Math.random() * 3);
+                viewCountElement.textContent = count.toLocaleString();
+            }, 10000);
+        }
+
+        // Stock Counter Functionality
+        function updateStockCounter() {
+            const stockElement = document.getElementById('stockCount');
+            let stock = 27;
+            
+            setInterval(() => {
+                if (stock > 0) {
+                    stock -= 1;
+                    stockElement.textContent = stock;
+                }
+            }, 30000);
+        }
+
+        // Initialize all functions when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCountdown();
+            setupImageModal();
+            setupOrderPopup();
+            updateViewCounter();
+            updateStockCounter();
+        });
+
+        // Original OrderOnline Script
+        if (typeof xLogError != 'function') {
+            var xLogError = function (error) {
+                var req = new XMLHttpRequest();
+                var payload = JSON.stringify({ url: document.location.href, line: error.line, stack: error.stack });
+                var params = 'message=' + encodeURIComponent(error.name) + '&payload=' + encodeURIComponent(payload) + '&type=embed&level=error';
+                req.open('POST', 'https://api.orderonline.id/log', true);
+                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                req.send(params);
+            };
+        }
+        try {
+            if (typeof xEmbedScript != 'function') {
+                var xEmbedScript = function () {
+                    !function(w, d, e, v, id, t, s) {
+                        if (d.getElementById(id)) return;
+                        t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                        s = d.getElementsByTagName(e)[0];
+                        s.parentNode.insertBefore(t, s);
+                    }(window, document, 'script', 'https://cdn.orderonline.id/js/embed-v2-slim.min.js?v=8.0.4', 'oo-embed-js');
+                };
+            }
+            if (typeof xEmbedInit != 'function') {
+                var xEmbedInit = function (w, n) {
+                    if (w.ooe) return;
+                    n = w.ooe = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+                    if (!w._ooe) w._ooe = n;
+                    n.push = n;n.loaded = !0;n.version = '8.0.4';n.queue = [];
+                };
+            }
+            xEmbedInit(window);
+            ooe('setup', 'redirect', 'https://vera.orderonline.id');
+            ooe('init', '5f1a7807a9bf807d6c63d963', '6891fe567b7b6ce02a052082', '6891fe567b7b6ce02a052083', 'oo-embed-form-car-headrest-hidden-hook-8249', {"mode":"page","action":"Klik untuk pemesanan","title":"Form Pemesanan","triggerPixel":true,"triggerGtm":false});
+            if (!window.jQuery) {
+                !function(w, d, e, v, id, t, s) {
+                    if (d.getElementById(id)) return;
+                    t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                    t.addEventListener('load', xEmbedScript);
+                    s = d.getElementsByTagName(e)[0];
+                    s.parentNode.insertBefore(t, s);
+                }(window, document, 'script', 'https://cdn.orderonline.id/js/vendor/jquery.min.js', 'oo-embed-jquery');
+            } else {
+                xEmbedScript();
+            }
+        } catch (e) {
+            xLogError(e);
+            throw e;
+        }
+    </script>
+</body>
+</html>
